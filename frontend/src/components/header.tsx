@@ -4,7 +4,7 @@ export default function Header() {
       <p className="text-garconia-offwhite text-lg font-medium">
         Garconia Presents
       </p>
-      <h1 className="font-bold text-white text-center text-5xl">
+      <h1 className="font-bold text-white text-center md:text-3xl text-2xl xl:text-5xl">
         EXPLORE DEMOCRACY IN MINECRAFT
       </h1>
     </div>

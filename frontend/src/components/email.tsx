@@ -1,12 +1,16 @@
 export default function Email() {
   return (
-    <div className="shrink-0 w-[80%] h-[50px] flex flex-row items-center justify-center">
+    <div className="shrink-0 w-[80%] h-fit xl:h-[50px] gap-2 xl:gap-0 flex flex-col xl:flex-row items-center justify-center">
       <input
-        className=" h-full bg-garconia-offwhite/50 shrink-0 w-[80%] outline-none rounded-l-md shadow-shadow border-[2px] border-black px-4"
+        type="email"
+        className=" xl:h-full text-garconia-white h-[50px] bg-garconia-offwhite/50 xl:shrink-0 w-full xl:rounded-none xl:w-[80%] outline-none rounded-md xl:rounded-l-md shadow-shadow border-[2px] border-black px-4"
         placeholder="Email..."
       />
-      <button className="bg-garconia-red w-full  h-full rounded-r-md shadow-shadow border-[2px] border-black">
-        <p className="text-white text-2xl font-bold"> NOTIFY ME!! </p>
+      <button className="px-2 bg-garconia-red w-fit xl:w-full h-[40px] xl:h-full rounded-md xl:rounded-none xl:rounded-r-md shadow-shadow border-[2px] border-black">
+        <p className="text-white whitespace-nowrap  md:text-2xl font-bold">
+          {" "}
+          NOTIFY ME!!{" "}
+        </p>
       </button>
     </div>
   );
