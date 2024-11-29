@@ -17,7 +17,7 @@ export default function Socials() {
             <img
               width={30}
               height={30}
-              alt="Discord"
+              alt="Discord Logo"
               src="/discord-color.svg"
             />
             <p className="text-garconia-white text-xl font-medium">Discord</p>
@@ -31,7 +31,7 @@ export default function Socials() {
             <img
               width={30}
               height={30}
-              alt="Bluesky"
+              alt="Bluesky Logo"
               src="/bluesky-color.svg"
             />
             <p className="text-garconia-white text-xl font-medium">Bluesky</p>
