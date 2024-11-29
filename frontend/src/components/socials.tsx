@@ -4,22 +4,36 @@ export default function Socials() {
       <p className="text-white text-xl font-bold">Follow Our Socials</p>
       <div className="w-full xl:w-fit flex gap-3  flex-col-reverse xl:flex-row xl:h-[100px] items-stretch h-auto justify-center">
         <div className=" h-fit w-full xl:w-fit flex flex-col items-center xl:items-end xl:h-full justify-center">
-          <img className="w-fit h-fit" src="/flag.png" />
+          <img className="w-fit h-fit" alt="Garconia Flag" src="/flag.png" />
         </div>
         <div className="bg-garconia-offwhite my-3  h-[2px] xl:h-full w-full xl:w-[2px]"></div>
         <div className=" gap-4 h-full w-full xl:w-fit flex flex-col items-center xl:items-start justify-center">
           <a
-            href=""
+            href="https://discord.gg/T7nbWurxcT"
+            target="_blank"
+            rel="noreferrer"
             className="w-fit flex flex-row items-center justify-center  h-fit gap-2"
           >
-            <img width={30} height={30} src="/discord-color.svg" />
+            <img
+              width={30}
+              height={30}
+              alt="Discord"
+              src="/discord-color.svg"
+            />
             <p className="text-garconia-white text-xl font-medium">Discord</p>
           </a>
           <a
-            href=""
+            href="https://bsky.app/profile/garconia.net"
+            target="_blank"
+            rel="noreferrer"
             className="w-fit flex flex-row items-center justify-center h-fit gap-2"
           >
-            <img width={30} height={30} src="/bluesky-color.svg" />
+            <img
+              width={30}
+              height={30}
+              alt="Bluesky"
+              src="/bluesky-color.svg"
+            />
             <p className="text-garconia-white text-xl font-medium">Bluesky</p>
           </a>
         </div>
