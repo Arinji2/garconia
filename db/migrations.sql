@@ -1,5 +1,5 @@
 CREATE TABLE signups (
-    id INTEGER PRIMARY KEY,
+    id VARCHAR(10) PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
     verified BOOLEAN DEFAULT 0,
     sent BOOLEAN DEFAULT 0,
