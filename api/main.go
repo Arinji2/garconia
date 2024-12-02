@@ -1,25 +1,40 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/render"
+
+	"github.com/arinji2/garconia/routes"
 	"github.com/arinji2/garconia/sqlite"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, world!")
-	})
 	fmt.Println("Server Started")
 	db, err := sqlite.NewConnection()
-	fmt.Println("Connection Established")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
-	fmt.Println("DB Found And Ready")
+	fmt.Println("DB Found and Ready")
+	db.Close()
+	r := chi.NewRouter()
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	r.Route("/api", func(r chi.Router) {
+		r.Use(middleware.Logger)
+		r.Post("/add", routes.AddEmailRoute)
+	})
+
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Landing Backend: Health Check"))
+		render.Status(r, 200)
+	})
+
+	if err := http.ListenAndServe(":8080", r); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		log.Fatalf("listen: %s\n", err)
+	}
 }

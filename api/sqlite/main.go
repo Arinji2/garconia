@@ -1,6 +1,7 @@
 package sqlite
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"log"
@@ -25,7 +26,11 @@ func NewConnection() (*Connection, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed to create database: %v", err)
 		}
-
+		// Set the database to WAL mode
+		_, err = db.Exec("PRAGMA journal_mode=WAL;")
+		if err != nil {
+			log.Fatalf("failed to set WAL mode: %v", err)
+		}
 		err = runMigrations(db, migrationPath)
 		if err != nil {
 			db.Close()
@@ -40,7 +45,11 @@ func NewConnection() (*Connection, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %v", err)
 	}
-
+	// Set the database to WAL mode
+	_, err = db.Exec("PRAGMA journal_mode=WAL;")
+	if err != nil {
+		log.Fatalf("failed to set WAL mode: %v", err)
+	}
 	err = db.Ping()
 	if err != nil {
 		db.Close()
@@ -89,10 +98,10 @@ func (c *Connection) Close() {
 	c.db.Close()
 }
 
-func (c *Connection) Query(query string, args ...interface{}) (*sql.Rows, error) {
-	return c.db.Query(query, args...)
+func (c *Connection) Query(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error) {
+	return c.db.QueryContext(ctx, query, args...)
 }
 
-func (c *Connection) Exec(query string, args ...interface{}) (sql.Result, error) {
-	return c.db.Exec(query, args...)
+func (c *Connection) Exec(ctx context.Context, query string, args ...interface{}) (sql.Result, error) {
+	return c.db.ExecContext(ctx, query, args...)
 }
