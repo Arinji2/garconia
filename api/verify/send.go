@@ -6,13 +6,12 @@ import (
 	"fmt"
 
 	email_handler "github.com/arinji2/garconia/emails/templates"
-	"github.com/arinji2/garconia/routes"
 	"github.com/arinji2/garconia/sqlite"
 	"github.com/arinji2/garconia/utils"
 )
 
 func VerifyEmail(con *sqlite.Connection, userData *sqlite.UserData) error {
-	id, err := routes.GenerateID(context.Background(), con)
+	id, err := utils.GenerateID(context.Background(), con, "signups")
 	if err != nil {
 		return err
 	}
