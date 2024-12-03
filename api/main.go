@@ -9,12 +9,17 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
+	"github.com/joho/godotenv"
 
 	"github.com/arinji2/garconia/routes"
 	"github.com/arinji2/garconia/sqlite"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	fmt.Println("Server Started")
 	db, err := sqlite.NewConnection()
 	if err != nil {
