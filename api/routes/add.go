@@ -15,7 +15,7 @@ type AddEmailRequest struct {
 }
 
 func addEmail(ctx context.Context, email string, con *sqlite.Connection) (string, error) {
-	id, err := generateID(ctx, con)
+	id, err := GenerateID(ctx, con)
 	if err != nil {
 		return "", err
 	}
@@ -29,7 +29,7 @@ func addEmail(ctx context.Context, email string, con *sqlite.Connection) (string
 }
 
 // generates a 10 digit ID
-func generateID(ctx context.Context, con *sqlite.Connection) (string, error) {
+func GenerateID(ctx context.Context, con *sqlite.Connection) (string, error) {
 	for {
 		id := generateRandomString(10)
 		exists, err := checkIDExists(ctx, con, id)

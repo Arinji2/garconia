@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/arinji2/garconia/sqlite"
+	"github.com/arinji2/garconia/verify"
 	"github.com/go-chi/render"
 )
 
@@ -33,6 +34,16 @@ func AddEmailRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id, err := addEmail(ctx, data.Email, db)
+	if err != nil {
+		render.Status(r, 500)
+		render.PlainText(w, r, err.Error())
+		return
+	}
+	userData := &sqlite.UserData{
+		ID:    id,
+		Email: data.Email,
+	}
+	err = verify.VerifyEmail(db, userData)
 	if err != nil {
 		render.Status(r, 500)
 		render.PlainText(w, r, err.Error())
