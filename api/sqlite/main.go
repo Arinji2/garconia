@@ -6,12 +6,25 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type Connection struct {
 	db *sql.DB
+}
+type UserData struct {
+	ID        string
+	Email     string
+	Verified  bool
+	Sent      bool
+	CreatedAt time.Time
+}
+type VerificationData struct {
+	ID        string
+	UserID    string
+	CreatedAt time.Time
 }
 
 // NewConnection creates a new database connection and runs migrations
