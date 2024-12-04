@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/arinji2/garconia/logging"
 	"github.com/arinji2/garconia/sqlite"
 	"github.com/arinji2/garconia/verify"
 	"github.com/go-chi/render"
@@ -35,10 +36,16 @@ func AddEmailRoute(w http.ResponseWriter, r *http.Request) {
 	}
 	id, err := addEmail(ctx, data.Email, db)
 	if err != nil {
+		if err.Error() == "UNIQUE constraint failed: signups.email" {
+			render.Status(r, 409)
+			render.PlainText(w, r, "Email already exists")
+		}
 		render.Status(r, 500)
 		render.PlainText(w, r, err.Error())
 		return
 	}
+	newUserLogger := logging.NewUserLogger(data.Email, id, r.RemoteAddr, r.UserAgent())
+	newUserLogger.Send()
 	userData := &sqlite.UserData{
 		ID:    id,
 		Email: data.Email,

@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/joho/godotenv"
 
@@ -20,6 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+
 	fmt.Println("Server Started")
 	db, err := sqlite.NewConnection()
 	if err != nil {
@@ -28,7 +30,14 @@ func main() {
 	fmt.Println("DB Found and Ready")
 	db.Close()
 	r := chi.NewRouter()
-
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173", "https://www.garconia.net"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}))
 	r.Route("/api", func(r chi.Router) {
 		r.Use(middleware.Logger)
 		r.Post("/add", routes.AddEmailRoute)

@@ -6,7 +6,7 @@ import (
 	"github.com/resend/resend-go/v2"
 )
 
-func SendEmail(email string, to string, title string) error {
+func SendEmail(email string, to string, title string) (string, error) {
 	client := resend.NewClient(os.Getenv("RESEND_API_KEY"))
 	params := &resend.SendEmailRequest{
 		From:    "Garconia <no-reply@mail.garconia.net>",
@@ -14,9 +14,9 @@ func SendEmail(email string, to string, title string) error {
 		Subject: title,
 		Html:    email,
 	}
-	_, err := client.Emails.Send(params)
+	res, err := client.Emails.Send(params)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return res.Id, nil
 }

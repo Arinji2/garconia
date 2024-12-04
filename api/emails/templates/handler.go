@@ -23,18 +23,18 @@ type VerifyEmailData struct {
 	VerificationURL string
 }
 
-func SendVerificationEmail(data VerifyEmailData, to string) error {
+func SendVerificationEmail(data VerifyEmailData, to string) (string, error) {
 	email := emails.EmailTemplateUtility(data, "verify", verifyEmailString)
-	err := emails.SendEmail(email, to, "Verify Your Email For Garconia")
+	res, err := emails.SendEmail(email, to, "Verify Your Email For Garconia")
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return res, nil
 }
 
 func SendConfirmationEmail(data ConfirmationEmailData, to string) error {
 	email := emails.EmailTemplateUtility(data, "confirmation", confirmationEmailString)
-	err := emails.SendEmail(email, to, "Confirmation Email for Garconia")
+	_, err := emails.SendEmail(email, to, "Confirmation Email for Garconia")
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func SendConfirmationEmail(data ConfirmationEmailData, to string) error {
 }
 
 func SendReleaseEmail(to string) error {
-	err := emails.SendEmail(releaseEmailString, to, "Garconia Released Today!!")
+	_, err := emails.SendEmail(releaseEmailString, to, "Garconia Released Today!!")
 	if err != nil {
 		return err
 	}
