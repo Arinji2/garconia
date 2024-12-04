@@ -8,6 +8,7 @@ CREATE TABLE signups (
 CREATE TABLE verifications (
     id VARCHAR(10) PRIMARY KEY,
     user_id VARCHAR(10) NOT NULL,
+    resend_id TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES signups(id) ON DELETE CASCADE
 )
