@@ -1,7 +1,6 @@
 import { END_DATE } from "./App";
 import CountDownComponent from "./components/countdown";
 import Delete from "./components/delete";
-import Email from "./components/email";
 import { VerifyHeader } from "./components/header";
 import Socials from "./components/socials";
 
