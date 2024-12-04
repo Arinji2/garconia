@@ -1,9 +1,8 @@
-import Header from "./components/header";
-import CountDownComponent from "./components/countdown";
-import Email from "./components/email";
-import Socials from "./components/socials";
+export const END_DATE = new Date("2024-12-31");
 import { Toaster } from "react-hot-toast";
-const END_DATE = new Date("2024-12-31");
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import Verify from "./Verify";
 function App() {
   return (
     <>
@@ -19,12 +18,19 @@ function App() {
           }}
         />
       </div>
+
       <div className="w-full flex flex-col items-center justify-start md:justify-center min-h-screen bg-garconia-background md:py-10 py-5 xl:py-20 xl:h-1  ">
-        <div className="w-full h-fit flex flex-col items-center gap-14 justify-start max-w-[1280px]">
-          <Header />
-          <CountDownComponent date={END_DATE} />
-          <Email />
-          <Socials />
+        <img
+          src="/verify-bg.webp"
+          alt="Verify Image"
+          className="object-cover w-full h-[100svh] fixed top-0 left-0 "
+        />
+        <div className="w-full h-[100svh] fixed top-0 left-0 z-10 bg-black/70"></div>
+        <div className="w-full h-fit flex flex-col items-center gap-14 justify-start max-w-[1280px] z-20">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/verify" element={<Verify />} />
+          </Routes>
         </div>
       </div>
     </>

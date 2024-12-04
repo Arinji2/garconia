@@ -10,3 +10,15 @@ export default function Header() {
     </div>
   );
 }
+export function VerifyHeader() {
+  return (
+    <div className="w-fit h-fit flex flex-col items-center justify-center gap-8">
+      <p className="text-garconia-offwhite text-2xl font-medium">
+        Thank You For Verifying Your Email
+      </p>
+      <p className="text-garconia-offwhite">
+        We will notify you when the Server is Ready
+      </p>
+    </div>
+  );
+}
