@@ -8,7 +8,7 @@ import (
 	"github.com/arinji2/garconia/sqlite"
 )
 
-const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%!"
+const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$!"
 
 // generates a 10 digit ID
 func GenerateID(ctx context.Context, con *sqlite.Connection, table string) (string, error) {
