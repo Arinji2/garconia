@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -68,8 +69,9 @@ func NewConnection() (*Connection, error) {
 		db.Close()
 		return nil, fmt.Errorf("failed to ping database: %v", err)
 	}
-
-	fmt.Println("Database found. Skipping migrations")
+	sync.OnceFunc(func() {
+		fmt.Println("Database found. Skipping migrations")
+	})
 	return &Connection{db}, nil
 }
 
