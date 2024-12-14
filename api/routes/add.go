@@ -2,7 +2,6 @@ package routes
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/arinji2/garconia/sqlite"
 	"github.com/arinji2/garconia/utils"
@@ -17,7 +16,6 @@ func addEmail(ctx context.Context, email string, con *sqlite.Connection) (string
 	if err != nil {
 		return "", err
 	}
-	fmt.Println(id)
 	query := "INSERT INTO signups (id, email) VALUES (?, ?)"
 	_, err = con.Exec(ctx, query, id, email)
 	if err != nil {

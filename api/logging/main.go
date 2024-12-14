@@ -126,9 +126,4 @@ func (l *Logger) Send() {
 		return
 	}
 	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		log.Println("Error sending request: ", resp.Status)
-		return
-	}
 }
