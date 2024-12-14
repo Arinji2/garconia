@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	email_handler "github.com/arinji2/garconia/emails/templates"
 	"github.com/arinji2/garconia/logging"
 	"github.com/arinji2/garconia/sqlite"
 	"github.com/arinji2/garconia/verify"
@@ -58,6 +59,40 @@ func AddEmailRoute(w http.ResponseWriter, r *http.Request) {
 	}
 	render.Status(r, 200)
 	render.JSON(w, r, id)
+}
+
+func VerifyEmailRoute(w http.ResponseWriter, r *http.Request) {
+	db, err := sqlite.NewConnection()
+	if err != nil {
+		render.Status(r, 500)
+		render.PlainText(w, r, err.Error())
+	}
+	ctx, cancel := context.WithTimeout(r.Context(), time.Minute*1)
+	defer cancel()
+	var data VerifyEmailRequest
+	err = parseRequestBody(r, &data)
+	if err != nil {
+		render.Status(r, 400)
+		render.PlainText(w, r, err.Error())
+		return
+	}
+	verified, err := verifyEmail(ctx, data.Code, data.Email, db)
+	if err != nil {
+		render.Status(r, 500)
+		render.PlainText(w, r, err.Error())
+		return
+	}
+
+	if verified {
+		newVerifiedLogger := logging.NewVerificationLogger(data.Email, r.RemoteAddr)
+		newVerifiedLogger.Send()
+		email_handler.SendConfirmationEmail(data.Email)
+		render.Status(r, 200)
+	} else {
+		newFailedVerificationLogger := logging.NewFailedVerificationLogger(data.Email, r.RemoteAddr)
+		newFailedVerificationLogger.Send()
+		render.Status(r, 400)
+	}
 }
 
 // ParseRequestBody parses the JSON body of a request into the provided struct.
