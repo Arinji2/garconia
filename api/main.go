@@ -31,8 +31,10 @@ func main() {
 	fmt.Println("DB Found and Ready")
 	db.Close()
 	r := chi.NewRouter()
+	frontendURL := os.Getenv("FRONTEND_URL")
+	fmt.Println("Allowing Origins: ", frontendURL)
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{os.Getenv("FRONTEND_URL")},
+		AllowedOrigins:   []string{frontendURL},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
