@@ -14,8 +14,9 @@ type Logger struct {
 }
 
 var colors = map[string]int{
-	"Green": 0x16a34a,
-	"Brand": 0xa31621,
+	"Green":  0x16a34a,
+	"Brand":  0xa31621,
+	"Purple": 0x800080,
 }
 
 func NewUserLogger(userEmail, userID, userIP, userAgent string) *Logger {
@@ -44,6 +45,31 @@ func NewUserLogger(userEmail, userID, userIP, userAgent string) *Logger {
 						{
 							Name:  "User Agent",
 							Value: userAgent,
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func NewFailedVerificationLogger(userEmail, userIP string) *Logger {
+	return &Logger{
+		Payload: WebhookPayload{
+			Embeds: []Embed{
+				{
+					Title:       "New User Failed Verification",
+					Description: "New User Verified their Verification",
+					Color:       colors["Purple"],
+					Fields: []Field{
+						{
+							Name:   "User IP",
+							Value:  userIP,
+							Inline: true,
+						},
+						{
+							Name:  "User Email",
+							Value: userEmail,
 						},
 					},
 				},
