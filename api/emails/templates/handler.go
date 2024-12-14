@@ -15,10 +15,6 @@ var releaseEmailString string
 //go:embed verify.html
 var verifyEmailString string
 
-type ConfirmationEmailData struct {
-	DeletionURL string
-}
-
 type VerifyEmailData struct {
 	VerificationURL string
 }
@@ -32,9 +28,8 @@ func SendVerificationEmail(data VerifyEmailData, to string) (string, error) {
 	return res, nil
 }
 
-func SendConfirmationEmail(data ConfirmationEmailData, to string) error {
-	email := emails.EmailTemplateUtility(data, "confirmation", confirmationEmailString)
-	_, err := emails.SendEmail(email, to, "Confirmation Email for Garconia")
+func SendConfirmationEmail(to string) error {
+	_, err := emails.SendEmail(confirmationEmailString, to, "Confirmation Email for Garconia")
 	if err != nil {
 		return err
 	}
