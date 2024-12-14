@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func GenerateVerificationURL(id string) string {
-	baseURL := os.Getenv("BASE_URL")
-	return fmt.Sprintf("%s/api/verify?id=%s", baseURL, id)
+func GenerateVerificationURL(id, email string) string {
+	baseURL := os.Getenv("FRONTEND_URL")
+	return fmt.Sprintf("%s/confirm?code=%s&email=%s", baseURL, id, email)
 }
