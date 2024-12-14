@@ -78,7 +78,7 @@ func NewFailedVerificationLogger(userEmail, userIP string) *Logger {
 	}
 }
 
-func NewVerificationLogger(userID string, userEmail string) *Logger {
+func NewVerificationLogger(userEmail string) *Logger {
 	return &Logger{
 		Payload: WebhookPayload{
 			Embeds: []Embed{
@@ -87,11 +87,6 @@ func NewVerificationLogger(userID string, userEmail string) *Logger {
 					Description: "New User Verified their Email",
 					Color:       colors["Green"],
 					Fields: []Field{
-						{
-							Name:   "User ID",
-							Value:  userID,
-							Inline: true,
-						},
 						{
 							Name:  "User Email",
 							Value: userEmail,

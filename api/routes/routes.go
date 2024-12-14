@@ -84,7 +84,7 @@ func VerifyEmailRoute(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if verified {
-		newVerifiedLogger := logging.NewVerificationLogger(data.Email, r.RemoteAddr)
+		newVerifiedLogger := logging.NewVerificationLogger(data.Email)
 		newVerifiedLogger.Send()
 		email_handler.SendConfirmationEmail(data.Email)
 		render.Status(r, 200)

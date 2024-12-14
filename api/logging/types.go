@@ -1,13 +1,10 @@
 package logging
 
-import "time"
-
 type Embed struct {
-	Title       string    `json:"title"`
-	Description string    `json:"description"`
-	Color       int       `json:"color"`
-	Fields      []Field   `json:"fields,omitempty"`
-	Timestamp   time.Time `json:"timestamp,omitempty"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Color       int     `json:"color"`
+	Fields      []Field `json:"fields,omitempty"`
 }
 
 type Field struct {
