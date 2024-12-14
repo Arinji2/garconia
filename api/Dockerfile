@@ -1,20 +1,34 @@
 # Use the official Go image as a build stage
 FROM golang:1.23.4-alpine AS builder
 
+# Install build dependencies for CGO and SQLite
+RUN apk add --no-cache gcc musl-dev sqlite-dev
+
 # Set the working directory
 WORKDIR /app
 
-# Copy and build
+# Copy and download dependencies
 COPY go.mod go.sum ./
 RUN go mod download
-COPY . .
-RUN go build -o main .
 
-# Use a minimal image to run the application
+# Copy the rest of the source code
+COPY . .
+
+# Enable CGO and build with static linking
+ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64
+RUN go build -ldflags="-linkmode=external -extldflags=-static" -o main .
+
+# Use a minimal runtime image
 FROM alpine:latest
 
+# Install SQLite runtime libraries
+RUN apk add --no-cache sqlite-libs
+
+# Set working directory
 WORKDIR /app
+
+# Copy the compiled binary
 COPY --from=builder /app/main .
 
-# Command to run the application
+# Run the binary
 CMD ["./main"]
