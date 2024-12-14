@@ -10,6 +10,19 @@ export default function Header() {
     </div>
   );
 }
+export function ConfirmHeader() {
+  return (
+    <div className="w-fit h-fit flex flex-col items-center justify-center gap-8">
+      <p className="text-garconia-offwhite text-2xl font-medium">
+        Confirm Your Email
+      </p>
+      <p className="text-garconia-offwhite">
+        Click the button below to confirm your email
+      </p>
+    </div>
+  );
+}
+
 export function VerifyHeader() {
   return (
     <div className="w-fit h-fit flex flex-col items-center justify-center gap-8">

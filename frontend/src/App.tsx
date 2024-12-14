@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Verify from "./Verify";
+import Confirm from "./Confirm";
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<Verify />} />
+            <Route path="/confirm" element={<Confirm />} />
           </Routes>
         </div>
       </div>
