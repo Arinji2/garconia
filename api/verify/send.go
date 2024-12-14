@@ -18,7 +18,7 @@ func VerifyEmail(con *sqlite.Connection, userData *sqlite.UserData) error {
 
 	fmt.Println("Sending Verifcation Email to ", userData.Email)
 	data := email_handler.VerifyEmailData{
-		VerificationURL: utils.GenerateVerificationURL(id),
+		VerificationURL: utils.GenerateVerificationURL(id, userData.Email),
 	}
 	email, err := email_handler.SendVerificationEmail(data, userData.Email)
 	if err != nil {
