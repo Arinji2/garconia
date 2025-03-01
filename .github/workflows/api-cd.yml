@@ -1,4 +1,4 @@
-name: Continue Deployment (API)
+name: Continuous Deployment (API)
 on:
   push:
     branches:
