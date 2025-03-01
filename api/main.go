@@ -18,10 +18,6 @@ import (
 )
 
 func main() {
-	environ := os.Environ()
-	for _, e := range environ {
-		fmt.Println(e)
-	}
 	isProduction := os.Getenv("ENVIRONMENT") == "PRODUCTION"
 	err := godotenv.Load()
 	if err != nil && !isProduction {
