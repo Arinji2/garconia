@@ -1,6 +1,6 @@
-# Monolithic Landing Page for Garconia
+# Monolithic Infrastructure for Garconia
 
-Welcome to the official monolithic landing page for [Garconia](https://www.garconia.net/)!
+Welcome to the official monolithic infrastructure repo for [Garconia](https://www.garconia.net/)!
 
 ---
 
@@ -26,11 +26,12 @@ Join us here: [Discord Invite](https://discord.gg/T7nbWurxcT)
 
 ## What is This Repository?
 
-This repository contains the entire infrastructure for Garconia's **open-source landing page**, including:
+This repository contains the entire infrastructure for Garconia's **open-source infrastructure**, including:
 
 1. **Frontend**
 2. **Backend API**
 3. **Database migration files**
+4. **Garconia Law Bot**
 
 Detailed instructions on how to host and manage each section can be found in the `README.md` files located within the respective folders.
 
