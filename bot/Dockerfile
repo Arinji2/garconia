@@ -1,6 +1,6 @@
 # Use the official Go image as a build stage
 FROM golang:1.23.5-alpine AS builder
-LABEL org.opencontainers.image.source="https://github.com/Arinji2/garconia-law-bot"
+LABEL org.opencontainers.image.source="https://github.com/Arinji2/garconia"
 
 # Install build dependencies for CGO 
 RUN apk add --no-cache gcc musl-dev 
