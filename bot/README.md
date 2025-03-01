@@ -1,86 +1,50 @@
 # Garconia Law Bot
 
-Welcome to the official Garconia Law Bot
+This is the **official bot** for handling Garconia's legal system, making it easy to access constitutional laws and amendments directly within Discord.
 
 ---
 
-## What is Garconia?
+## Tech Stack
 
-Garconia is a **Minecraft server** inspired by modern-day democracy. In Garconia, you can:
-
-- Start your own government.
-- Work with the local government.
-- Become the opposition party.
-
-With less emphasis on PvP, our server is perfect for players who enjoy a wide range of gameplay styles, whether you're a builder, a strategist, or a diplomat.
+- **Go**: A fast and efficient language for backend services.
+- **PocketBase**: A lightweight backend for managing legal data.
+- **Discord API**: For seamless integration with Discord servers.
 
 ---
 
-## How Do I Join?
+## Hosting
 
-Our **Discord server** is the best place to learn more about Garconia, connect with the community, and get updates.
-
-Join us here: [Discord Invite](https://discord.gg/T7nbWurxcT)
+The bot runs on a **dedicated server**, ensuring reliable uptime and quick responses.
 
 ---
 
-## What is This Repository?
+## Environment Variables
 
-This repository contains the code for the **Garconia Law Bot**. The Garconia Law Bot handles showcasing the users the intricate constitution of Garconia, with multiple commands to:
+The bot requires the following environment variables to be configured:
 
-1. `Get All Articles`
-2. `Get Specific Articles`
-3. `Get Specific Clauses`
-4. `Get Specific Amendments`
-5. And More...
-
----
-
-## Get Started
-
-To get started with the Garconia Law Bot:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Arinji2/garconia-law-bot
-   ```
-
-2. Set up your environment:
-
-   - Rename the `example.env` file to `.env`.
-   - Populate the `.env` file with the following required variables:
-
-     ```env
-     TOKEN=(Bot Token)
-     GUILD_ID=(ID of the Guild which the bot is in)
-     ADMIN_EMAIL=(Super user email of the Pocketbase Instance)
-     ADMIN_PASSWORD=(Super user password of the Pocketbase Instance)
-     BASE_DOMAIN=(Base domain of the Pocketbase Instance)
-     ALLOWED_ROLES=(Comma-separated list of allowed role IDs for the data-refresh command)
-     ALLOWED_CHANNELS=(Comma-separated list of allowed channel IDs for the commands to be run in)
-     ```
-
-3. Install dependencies and run the bot:
-   ```bash
-   go mod tidy
-   go run .
-   ```
+```env
+TOKEN=(Bot Token)
+GUILD_ID=(ID of the Guild which the bot is in)
+ADMIN_EMAIL=(Super user email of the PocketBase Instance)
+ADMIN_PASSWORD=(Super user password of the PocketBase Instance)
+BASE_DOMAIN=(Base domain of the PocketBase Instance)
+ALLOWED_ROLES=(Comma-separated list of allowed role IDs for the data-refresh command)
+ALLOWED_CHANNELS=(Comma-separated list of allowed channel IDs for the commands to be run in)
+```
 
 ---
 
 ## Commands
 
-The following commands exist in the bot:
-
 ### Refresh Data
 
 - **Command:** `/refresh-data`
-- **Description:** Refresh the data of the bot.
+- **Description:** Refreshes the bot’s stored legal data.
 
 ### Get Clauses
 
 - **Command:** `/get-clauses`
-- **Description:** Get the clauses of the constitution.
+- **Description:** Retrieves specific clauses from the constitution.
 - **Options:**
   - `article-number` (Required): Article number of the clause.
   - `clause-number` (Optional): Clause number (autocomplete enabled).
@@ -88,14 +52,14 @@ The following commands exist in the bot:
 ### Get Articles
 
 - **Command:** `/get-articles`
-- **Description:** Get the articles of the constitution.
+- **Description:** Retrieves articles from the constitution.
 - **Options:**
   - `article-number` (Optional): Article number of the clause (autocomplete enabled).
 
 ### Get Amendments
 
 - **Command:** `/get-amendments`
-- **Description:** Get the amendments of the constitution.
+- **Description:** Retrieves constitutional amendments.
 - **Options:**
   - `article-number` (Required): Article number of the constitution.
   - `clause-number` (Required): Clause number of the article.
@@ -105,5 +69,4 @@ The following commands exist in the bot:
 
 ## Built by Arinji
 
-This project was proudly built by [Arinji](https://www.arinji.com/). Check out my website for more cool projects!
-
+This project is proudly built as part of the **Garconia Monolithic Infrastructure** by [Arinji](https://www.arinji.com/). Check out my website for more cool projects!
