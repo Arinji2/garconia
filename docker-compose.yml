@@ -1,9 +1,44 @@
 services:
   api:
-    image: ghcr.io/arinji2/garconia-api:latest 
-    ports:
-      - "60:8080"
+    image: ghcr.io/arinji2/garconia-api:latest
+    container_name: garconia-api
+    # ports:
+    #   - "60:8080"
     volumes:
       - ./db:/db
-      - ./api/.env:/app/.env
+
+    env_file:
+      - ./api/.env
+    networks:
+      - app-network
+      - proxy
+    restart: unless-stopped
+
+  bot:
+    image: ghcr.io/arinji2/garconia-law-bot:latest
+    container_name: garconia-law-bot
+    env_file:
+      - ./bot/.env
+    networks:
+      - app-network
+      - proxy
+    restart: unless-stopped
+
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:0.24.4
+    container_name: garconia-pb
+    # ports:
+    #   - "62:8090"
+    volumes:
+      - ./pb_data:/pb_data
+    networks:
+      - app-network
+      - proxy
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+  proxy:
+    external: true
 
