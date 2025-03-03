@@ -1,4 +1,4 @@
-import { END_DATE } from "./App";
+import { END_DATE } from "./Date";
 import CountDownComponent from "./components/countdown";
 import Email from "./components/email";
 import Header from "./components/header";

@@ -1,9 +1,8 @@
-export const END_DATE = new Date("2024-12-31");
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
+import Confirm from "./Confirm";
 import Home from "./Home";
 import Verify from "./Verify";
-import Confirm from "./Confirm";
 function App() {
   return (
     <>
