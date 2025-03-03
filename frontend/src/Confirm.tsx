@@ -5,7 +5,7 @@ import { ConfirmHeader } from "./components/header";
 import Socials from "./components/socials";
 
 export default function Confirm() {
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
   const email = searchParams.get("email");
   const navigate = useNavigate();
