@@ -15,6 +15,12 @@ func (p *PocketbaseAdmin) GetAllArticles() ([]BaseCollection, error) {
 	}
 	parsedURL.Path = "/api/collections/article/records"
 
+	params := url.Values{}
+	params.Add("sort", "number")
+
+	rawQuery := params.Encode()
+	parsedURL.RawQuery = rawQuery
+
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
 	if err != nil {
@@ -39,6 +45,8 @@ func (p *PocketbaseAdmin) GetArticleByNumber(articleNumber string) (BaseCollecti
 
 	params := url.Values{}
 	params.Add("filter", fmt.Sprintf("number='%s'", articleNumber))
+	params.Add("sort", "number")
+
 	rawQuery := params.Encode()
 	parsedURL.RawQuery = rawQuery
 
