@@ -8,14 +8,17 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func checkPermissions(s *discordgo.Session, i *discordgo.InteractionCreate) {
-	hasPermission := false
+func isAdmin(i *discordgo.InteractionCreate) bool {
 	for _, role := range i.Member.Roles {
 		if slices.Contains(AllowedRoles, role) {
-			hasPermission = true
-			break
+			return true
 		}
 	}
+	return false
+}
+
+func checkPermissions(s *discordgo.Session, i *discordgo.InteractionCreate) {
+	hasPermission := isAdmin(i)
 	if !hasPermission {
 		s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 			Type: discordgo.InteractionResponseChannelMessageWithSource,
@@ -28,6 +31,11 @@ func checkPermissions(s *discordgo.Session, i *discordgo.InteractionCreate) {
 }
 
 func checkChannel(s *discordgo.Session, i *discordgo.InteractionCreate) bool {
+	isAdmin := isAdmin(i)
+	if isAdmin {
+		return true
+	}
+
 	hasPermission := slices.Contains(AllowedChannels, i.ChannelID)
 	if !hasPermission {
 		s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
