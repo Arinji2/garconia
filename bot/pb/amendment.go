@@ -15,11 +15,13 @@ func (p *PocketbaseAdmin) GetAllAmendments(expand bool) ([]AmendmentCollection, 
 	}
 	parsedURL.Path = "/api/collections/amendment/records"
 
+	params := url.Values{}
 	if expand {
-		params := url.Values{}
 		params.Add("expand", "clause")
-		parsedURL.RawQuery = params.Encode()
 	}
+	params.Add("sort", "number")
+
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
@@ -42,13 +44,15 @@ func (p *PocketbaseAdmin) GetAmendmentByNumber(amendmentNumber, clauseNumber, ar
 		return AmendmentCollection{}, err
 	}
 	parsedURL.Path = "/api/collections/amendment/records"
+
 	params := url.Values{}
 	params.Add("filter", fmt.Sprintf("number='%s' && clause.number='%s' && clause.article.number='%s'", amendmentNumber, clauseNumber, articleNumber))
 	if expand {
 		params.Add("expand", "clause,clause.article")
 	}
-	rawQuery := params.Encode()
-	parsedURL.RawQuery = rawQuery
+	params.Add("sort", "number")
+
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
@@ -78,6 +82,7 @@ func (p *PocketbaseAdmin) GetAmendmentsByClause(clause string) ([]AmendmentColle
 
 	params := url.Values{}
 	params.Add("filter", fmt.Sprintf("clause.number='%s'", clause))
+	params.Add("sort", "number")
 	params.Add("expand", "clause")
 	rawQuery := params.Encode()
 	parsedURL.RawQuery = rawQuery
