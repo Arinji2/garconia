@@ -15,11 +15,13 @@ func (p *PocketbaseAdmin) GetAllClauses(expand bool) ([]ClauseCollection, error)
 	}
 	parsedURL.Path = "/api/collections/clause/records"
 
+	params := url.Values{}
 	if expand {
-		params := url.Values{}
 		params.Add("expand", "article")
-		parsedURL.RawQuery = params.Encode()
 	}
+
+	params.Add("sort", "number")
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
@@ -42,13 +44,16 @@ func (p *PocketbaseAdmin) GetClauseByNumber(clauseNumber, articleNumber string, 
 		return ClauseCollection{}, err
 	}
 	parsedURL.Path = "/api/collections/clause/records"
+
 	params := url.Values{}
 	params.Add("filter", fmt.Sprintf("number='%s' && article.number='%s'", clauseNumber, articleNumber))
+	params.Add("sort", "number")
+
 	if expand {
 		params.Add("expand", "article")
 	}
-	rawQuery := params.Encode()
-	parsedURL.RawQuery = rawQuery
+
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
@@ -79,8 +84,9 @@ func (p *PocketbaseAdmin) GetClausesByArticle(article string) ([]ClauseCollectio
 	params := url.Values{}
 	params.Add("filter", fmt.Sprintf("article.number='%s'", article))
 	params.Add("expand", "article")
-	rawQuery := params.Encode()
-	parsedURL.RawQuery = rawQuery
+	params.Add("sort", "number")
+
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
