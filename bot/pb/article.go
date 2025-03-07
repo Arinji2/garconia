@@ -18,8 +18,7 @@ func (p *PocketbaseAdmin) GetAllArticles() ([]BaseCollection, error) {
 	params := url.Values{}
 	params.Add("sort", "number")
 
-	rawQuery := params.Encode()
-	parsedURL.RawQuery = rawQuery
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
@@ -47,8 +46,7 @@ func (p *PocketbaseAdmin) GetArticleByNumber(articleNumber string) (BaseCollecti
 	params.Add("filter", fmt.Sprintf("number='%s'", articleNumber))
 	params.Add("sort", "number")
 
-	rawQuery := params.Encode()
-	parsedURL.RawQuery = rawQuery
+	parsedURL.RawQuery = params.Encode()
 
 	type request struct{}
 	responseBody, err := network.MakeAuthenticatedRequest(parsedURL, "GET", request{}, p.Token)
